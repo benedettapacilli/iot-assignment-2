@@ -14,8 +14,8 @@ void SmartLightingTask::init(int period)
 }
 
 void SmartLightingTask::tick()
-{   
-    //TODO: check if situation is ALARM and if so, set state to OFF
+{
+    // TODO: check if situation is ALARM and if so, set state to OFF
 
     switch (this->state)
     {
@@ -48,7 +48,7 @@ void SmartLightingTask::tick()
 
     case OFF:
         this->led.off();
-        //TODO: check if situation is NORMAL or PREALARM and if so, set state to IDLE
+        // TODO: check if situation is NORMAL or PREALARM and if so, set state to IDLE
         break;
     }
 }
