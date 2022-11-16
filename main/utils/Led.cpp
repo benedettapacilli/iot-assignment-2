@@ -1,18 +1,26 @@
 #include "Led.h"
 
-Led::Led(int pin) {
+Led::Led()
+{
+}
+
+Led::Led(int pin)
+{
   this->pin = pin;
   pinMode(this->pin, OUTPUT);
 }
 
-void Led::on() {
+void Led::on()
+{
   digitalWrite(this->pin, HIGH);
 }
 
-void Led::off() {
+void Led::off()
+{
   digitalWrite(this->pin, LOW);
 }
 
-void Led::toggle() {
+void Led::toggle()
+{
   digitalWrite(this->pin, !digitalRead(this->pin));
 }
