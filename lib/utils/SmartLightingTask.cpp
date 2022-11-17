@@ -1,4 +1,4 @@
-#include "SmartLightingTask.h"
+#include "../../include/utils/SmartLightingTask.h"
 
 SmartLightingTask::SmartLightingTask(int sensorPin, int lsPin, int pinLa)
 {
