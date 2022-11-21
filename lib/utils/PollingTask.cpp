@@ -1,5 +1,5 @@
 #include "../../include/utils/PollingTask.h"
-#include "../../include/utils/State.h"
+#include "../../include/utils/Situation.h"
 
 PollingTask::PollingTask(int sonarPin1, int sonarPin2)
 {
