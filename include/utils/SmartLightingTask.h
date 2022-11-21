@@ -1,6 +1,7 @@
 #pragma once
 #include "Task.h"
 #include "Led.h"
+#include "SmartLightingState.h"
 #define THl 500
 #define T1 1000
 
@@ -13,15 +14,8 @@ private:
     int T1offset;
 
 public:
-    State state;
+    SmartLightingState state;
     SmartLightingTask(int pirPin, int lsPin, int laPin);
     void init(int period);
     void tick();
-};
-
-enum State
-{
-    IDLE,
-    DETECTED,
-    OFF
 };
