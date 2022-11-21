@@ -3,7 +3,7 @@
 #include "Led.h"
 #include "SmartLightingState.h"
 #define THl 500
-#define T1 1000
+#define T1 5000
 
 class SmartLightingTask : public Task
 {
