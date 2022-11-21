@@ -1,10 +1,10 @@
 #include "../../include/utils/SmartLightingTask.h"
 
-SmartLightingTask::SmartLightingTask(int sensorPin, int lsPin, int pinLa)
+SmartLightingTask::SmartLightingTask(int sensorPin, int lsPin, int laPin)
 {
     this->pirPin = sensorPin;
     this->lsPin = lsPin;
-    this->led = Led(pinLa);
+    this->led = Led(laPin);
 }
 
 void SmartLightingTask::init(int period)

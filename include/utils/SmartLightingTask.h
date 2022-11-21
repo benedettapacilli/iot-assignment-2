@@ -14,7 +14,7 @@ private:
 
 public:
     State state;
-    SmartLightingTask(int pirPin, int lsPin, int pinLa);
+    SmartLightingTask(int pirPin, int lsPin, int laPin);
     void init(int period);
     void tick();
 };
