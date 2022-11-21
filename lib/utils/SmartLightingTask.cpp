@@ -1,4 +1,5 @@
 #include "../../include/utils/SmartLightingTask.h"
+#include "../../include/utils/Situation.h"
 
 SmartLightingTask::SmartLightingTask(int sensorPin, int lsPin, int laPin)
 {
@@ -15,12 +16,17 @@ void SmartLightingTask::init(int period)
 
 void SmartLightingTask::tick()
 {
-    // TODO: check if situation is ALARM and if so, set state to OFF
+    if (situation == ALARM)
+    {
+        this->state = OFF;
+    }
 
     switch (this->state)
     {
     case IDLE:
-        int detected = analogRead(this->pirPin);
+    {
+        Serial.println("IDLE");
+        int detected = digitalRead(this->pirPin);
 
         if (detected)
         {
@@ -28,8 +34,11 @@ void SmartLightingTask::tick()
             this->T1offset = millis();
         }
         break;
+    }
 
     case DETECTED:
+    {
+        Serial.println("DETECTED");
         int lsValue = analogRead(this->lsPin);
         if (lsValue < THl)
         {
@@ -38,17 +47,32 @@ void SmartLightingTask::tick()
         else
         {
             this->state = IDLE;
+            this->led.off();
+        }
+
+        int detected = digitalRead(this->pirPin);
+
+        if (detected)
+        {
+            this->T1offset = millis();
         }
 
         if (millis() - this->T1offset > T1)
         {
+            this->led.off();
             this->state = IDLE;
         }
         break;
+    }
 
     case OFF:
+        Serial.println("OFF");
         this->led.off();
-        // TODO: check if situation is NORMAL or PREALARM and if so, set state to IDLE
+
+        if (situation == NORMAL || situation == PREALARM)
+        {
+            this->state = IDLE;
+        }
         break;
     }
 }
