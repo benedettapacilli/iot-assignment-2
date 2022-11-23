@@ -9,8 +9,7 @@ PollingTask::PollingTask(int trigPin, int echoPin)
 void PollingTask::init(int period)
 {
     Task::init(period);
-    this->waterLevel = pollWaterLevel();
-    this->lastTimePolled = millis();
+    this->pollWaterLevel();
 }
 
 void PollingTask::tick()
@@ -18,32 +17,26 @@ void PollingTask::tick()
     switch (situation)
     {
     case NORMAL:
-        if (millis() - lastTimePolled >= PEnormal)
-        {
-            this->waterLevel = this->pollWaterLevel();
-            lastTimePolled = millis();
-        }
+        this->currentPE = PEnormal;
         break;
 
     case PREALARM:
-        if (millis() - lastTimePolled >= PEprealarm)
-        {
-            this->waterLevel = this->pollWaterLevel();
-            lastTimePolled = millis();
-        }
+        this->currentPE = PEprealarm;
         break;
 
     case ALARM:
-        if (millis() - lastTimePolled >= PEalarm)
-        {
-            this->waterLevel = this->pollWaterLevel();
-            lastTimePolled = millis();
-        }
+        this->currentPE = PEalarm;
         break;
+    }
+
+    if (millis() - lastTimePolled >= currentPE)
+    {
+        this->pollWaterLevel();
     }
 }
 
-int PollingTask::pollWaterLevel()
+void PollingTask::pollWaterLevel()
 {
-    return this->sonar.getDistance();
+    this->lastTimePolled = millis();
+    this->waterLevel = this->sonar.getDistance();
 }

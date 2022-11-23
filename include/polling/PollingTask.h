@@ -11,10 +11,11 @@ class PollingTask : public Task
 private:
     Sonar sonar;
     int lastTimePolled;
+    int currentPE;
 
 public:
     PollingTask(int trigPin, int echoPin);
-    int pollWaterLevel();
+    void pollWaterLevel();
     void init(int period);
     void tick();
     int waterLevel;
