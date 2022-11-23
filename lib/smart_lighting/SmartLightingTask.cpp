@@ -3,7 +3,7 @@
 
 SmartLightingTask::SmartLightingTask(int pirPin, int lsPin, int laPin)
 {
-    this->lsPin = lsPin;
+    this->ls = LightSensor(lsPin);
     this->led = Led(laPin);
     this->pir = Pir(pirPin);
 }
@@ -38,8 +38,7 @@ void SmartLightingTask::tick()
     case DETECTED:
     {
         Serial.println("DETECTED");
-        int lsValue = analogRead(this->lsPin);
-        if (lsValue < THl)
+        if (this->ls.getLightLevel() < THl)
         {
             this->led.on();
         }

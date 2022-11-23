@@ -2,6 +2,7 @@
 #include "../utils/Task.h"
 #include "../utils/Led.h"
 #include "../utils/Pir.h"
+#include "../utils/LightSensor.h"
 #include "SmartLightingState.h"
 #define THl 500
 #define T1 5000
@@ -9,7 +10,7 @@
 class SmartLightingTask : public Task
 {
 private:
-    int lsPin;
+    LightSensor ls;
     Led led;
     Pir pir;
     int T1offset;
