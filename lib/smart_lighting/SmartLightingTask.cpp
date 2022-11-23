@@ -1,4 +1,4 @@
-#include "../../include/utils/SmartLightingTask.h"
+#include "../../include/smart_lighting/SmartLightingTask.h"
 #include "../../include/utils/Situation.h"
 
 SmartLightingTask::SmartLightingTask(int sensorPin, int lsPin, int laPin)
