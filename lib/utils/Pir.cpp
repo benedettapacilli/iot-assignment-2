@@ -11,6 +11,5 @@ Pir::Pir(int pin)
 
 bool Pir::detect()
 {
-    return digitalRead(pin);
+    return digitalRead(this->pin);
 }
-
