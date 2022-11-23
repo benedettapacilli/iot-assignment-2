@@ -1,11 +1,11 @@
 #include "../../include/smart_lighting/SmartLightingTask.h"
 #include "../../include/utils/Situation.h"
 
-SmartLightingTask::SmartLightingTask(int sensorPin, int lsPin, int laPin)
+SmartLightingTask::SmartLightingTask(int pirPin, int lsPin, int laPin)
 {
-    this->pirPin = sensorPin;
     this->lsPin = lsPin;
     this->led = Led(laPin);
+    this->pir = Pir(pirPin);
 }
 
 void SmartLightingTask::init(int period)
@@ -26,9 +26,8 @@ void SmartLightingTask::tick()
     case IDLE:
     {
         Serial.println("IDLE");
-        int detected = digitalRead(this->pirPin);
 
-        if (detected)
+        if (this->pir.detect())
         {
             state = DETECTED;
             this->T1offset = millis();
@@ -50,9 +49,7 @@ void SmartLightingTask::tick()
             this->led.off();
         }
 
-        int detected = digitalRead(this->pirPin);
-
-        if (detected)
+        if (this->pir.detect())
         {
             this->T1offset = millis();
         }
