@@ -20,7 +20,7 @@ private:
     Sonar sonar;
     unsigned long lastTimePolled;
     unsigned long lastTimeBlinked;
-    int currentPE;
+    unsigned long currentPE;
     Led lb;
     Led lc;
     Potentiometer pot;
