@@ -9,9 +9,9 @@
 #define PEnormal 2000
 #define PEprealarm 1000
 #define PEalarm 500
-#define WL1 50
-#define WL2 100
-#define WLMAX 150
+#define WL1 33
+#define WL2 66
+#define WLMAX 100
 #define BLINKING_INTERVAL 2000
 
 class PollingTask : public Task
