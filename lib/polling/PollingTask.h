@@ -6,14 +6,17 @@
 #include "LiquidCrystal_I2C.h"
 
 extern Situation situation;
+extern int waterLevel;
+extern unsigned int valveOpening;
 
-#define PEnormal 2000
-#define PEprealarm 1000
-#define PEalarm 500
+#define PEnormal 500
+#define PEprealarm 250
+#define PEalarm 100
 #define WL1 33
 #define WL2 66
 #define WLMAX 100
 #define BLINKING_INTERVAL 2000
+#define LCD_REFRESH_INTERVAL 400
 
 class PollingTask : public Task
 {
@@ -22,6 +25,7 @@ private:
     unsigned long lastTimePolled;
     unsigned long lastTimeBlinked;
     unsigned long currentPE;
+    unsigned long lastTimeLCDRefreshed;
     Led lb;
     Led lc;
 
@@ -34,5 +38,4 @@ public:
     PollingTask(int trigPin, int echoPin, int lbPin, int lcPin);
     void init(int period);
     void tick();
-    int waterLevel;
 };

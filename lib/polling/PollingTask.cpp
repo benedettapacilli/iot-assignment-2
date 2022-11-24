@@ -19,15 +19,15 @@ void PollingTask::init(int period)
 
 void PollingTask::tick()
 {
-    if (this->waterLevel >= 0 && this->waterLevel <= WL1)
+    if (waterLevel >= 0 && waterLevel <= WL1)
     {
         situation = NORMAL;
     }
-    else if (this->waterLevel > WL1 && this->waterLevel <= WL2)
+    else if (waterLevel > WL1 && waterLevel <= WL2)
     {
         situation = PREALARM;
     }
-    else if (this->waterLevel > WL2 && this->waterLevel <= WLMAX)
+    else if (waterLevel > WL2 && waterLevel <= WLMAX)
     {
         situation = ALARM;
     }
@@ -67,8 +67,7 @@ void PollingTask::pollWaterLevel()
 {
     this->lastTimePolled = millis();
     int distance = this->sonar.getDistance();
-    this->waterLevel = WLMAX - ((distance == 0 || distance > WLMAX) ? WLMAX : distance);
-    Serial.println(distance);
+    waterLevel = WLMAX - ((distance == 0 || distance > WLMAX) ? WLMAX : distance);
 }
 
 void PollingTask::blinkLc()
@@ -82,25 +81,33 @@ void PollingTask::blinkLc()
 
 void PollingTask::showPreAlarmInfo()
 {
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Pre-alarm");
-    lcd.setCursor(0, 1);
-    lcd.print("Water level: ");
-    lcd.print(this->waterLevel);
-    lcd.backlight();
+    if (millis() - lastTimeLCDRefreshed >= LCD_REFRESH_INTERVAL)
+    {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Pre-alarm");
+        lcd.setCursor(0, 1);
+        lcd.print("Water level: ");
+        lcd.print(waterLevel);
+        lcd.backlight();
+        this->lastTimeLCDRefreshed = millis();
+    }
 }
 
 void PollingTask::showAlarmInfo()
 {
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Alarm");
-    lcd.setCursor(0, 1);
-    lcd.print("Water level: ");
-    lcd.print(this->waterLevel);
-    lcd.setCursor(0, 2);
-    lcd.print("Valve opening: ");
-    // TODO: lcd print valve opening
-    lcd.backlight();
+    if (millis() - lastTimeLCDRefreshed >= LCD_REFRESH_INTERVAL)
+    {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Alarm");
+        lcd.setCursor(0, 1);
+        lcd.print("Water level: ");
+        lcd.print(waterLevel);
+        lcd.setCursor(0, 2);
+        lcd.print("Valve opening: ");
+        lcd.print(valveOpening);
+        lcd.backlight();
+        this->lastTimeLCDRefreshed = millis();
+    }
 }
