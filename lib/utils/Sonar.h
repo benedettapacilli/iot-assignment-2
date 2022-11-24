@@ -10,5 +10,5 @@ private:
 public:
     Sonar();
     Sonar(int trigPin, int echoPin);
-    int getDistance();
+    unsigned long getDistance();
 };

@@ -12,12 +12,12 @@ Sonar::Sonar(int trigPin, int echoPin)
     pinMode(this->echoPin, INPUT);
 }
 
-int Sonar::getDistance()
+unsigned long Sonar::getDistance()
 {
     digitalWrite(this->trigPin, LOW);
-    delayMicroseconds(2);
+    delayMicroseconds(5);
     digitalWrite(this->trigPin, HIGH);
     delayMicroseconds(10);
     digitalWrite(this->trigPin, LOW);
-    return pulseIn(this->echoPin, HIGH) / 58.2;
+    return pulseIn(this->echoPin, HIGH, 12000) * 0.0343 / 2;
 }
