@@ -3,12 +3,11 @@ extern Situation situation;
 
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
 
-PollingTask::PollingTask(int trigPin, int echoPin, int lbPin, int lcPin, int potPin)
+PollingTask::PollingTask(int trigPin, int echoPin, int lbPin, int lcPin)
 {
     this->sonar = Sonar(trigPin, echoPin);
     this->lb = Led(lbPin);
     this->lc = Led(lcPin);
-    this->pot = Potentiometer(potPin);
 }
 
 void PollingTask::init(int period)
@@ -54,6 +53,7 @@ void PollingTask::tick()
         this->currentPE = PEalarm;
         this->lb.off();
         this->lc.on();
+
         showAlarmInfo();
         break;
     }
@@ -102,11 +102,6 @@ void PollingTask::showAlarmInfo()
     lcd.print(this->waterLevel);
     lcd.setCursor(0, 2);
     lcd.print("Valve opening: ");
-    lcd.print(getValveOpeningDegree());
+    // TODO: lcd print valve opening
     lcd.backlight();
-}
-
-int PollingTask::getValveOpeningDegree()
-{
-    return map(this->pot.read(), 0, 1023, 0, 180);
 }

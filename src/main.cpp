@@ -25,7 +25,7 @@ void setup()
     scheduler.init(gcd_ctz(SMART_LIGHTING_TASK_PERIOD, POLLING_TASK_PERIOD));
 
     Task *smartLightingTask = new SmartLightingTask(PIR_PIN, LS_PIN, LA_PIN);
-    Task *pollingTask = new PollingTask(SONAR_TRIG_PIN, SONAR_ECHO_PIN, LB_PIN, LC_PIN, POT_PIN);
+    Task *pollingTask = new PollingTask(SONAR_TRIG_PIN, SONAR_ECHO_PIN, LB_PIN, LC_PIN);
 
     smartLightingTask->init(SMART_LIGHTING_TASK_PERIOD);
     pollingTask->init(POLLING_TASK_PERIOD);

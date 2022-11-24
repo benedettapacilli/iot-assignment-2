@@ -23,16 +23,14 @@ private:
     unsigned long currentPE;
     Led lb;
     Led lc;
-    Potentiometer pot;
 
     void pollWaterLevel();
     void blinkLc();
     void showPreAlarmInfo();
     void showAlarmInfo();
-    int getValveOpeningDegree();
 
 public:
-    PollingTask(int trigPin, int echoPin, int lbPin, int lcPin, int potPin);
+    PollingTask(int trigPin, int echoPin, int lbPin, int lcPin);
     void init(int period);
     void tick();
     int waterLevel;
