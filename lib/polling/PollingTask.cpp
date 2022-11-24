@@ -1,5 +1,5 @@
-#include "../../include/polling/PollingTask.h"
-#include "../../include/utils/Situation.h"
+#include "PollingTask.h"
+#include "../utils/Situation.h"
 
 PollingTask::PollingTask(int trigPin, int echoPin, int lbPin, int lcPin, int potPin)
 {

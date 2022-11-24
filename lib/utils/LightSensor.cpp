@@ -1,4 +1,4 @@
-#include "../../include/utils/LightSensor.h"
+#include "LightSensor.h"
 
 LightSensor::LightSensor()
 {

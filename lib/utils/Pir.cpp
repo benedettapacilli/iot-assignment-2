@@ -1,4 +1,4 @@
-#include "../../include/utils/Pir.h"
+#include "Pir.h"
 
 Pir::Pir()
 {

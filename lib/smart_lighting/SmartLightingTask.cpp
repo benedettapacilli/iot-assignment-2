@@ -1,5 +1,5 @@
-#include "../../include/smart_lighting/SmartLightingTask.h"
-#include "../../include/utils/Situation.h"
+#include "SmartLightingTask.h"
+#include "../utils/Situation.h"
 
 SmartLightingTask::SmartLightingTask(int pirPin, int lsPin, int laPin)
 {

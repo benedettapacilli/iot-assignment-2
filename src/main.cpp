@@ -1,7 +1,7 @@
 #include <Arduino.h>
-#include "../include/utils/Scheduler.h"
+#include "../lib/utils/Scheduler.h"
 #include "../lib/utils/Scheduler.cpp"
-#include "../include/smart_lighting/SmartLightingTask.h"
+#include "../lib/smart_lighting/SmartLightingTask.h"
 
 #define PIR_PIN 3
 #define LS_PIN A0
