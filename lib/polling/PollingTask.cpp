@@ -1,5 +1,7 @@
 #include "PollingTask.h"
-#include "../utils/Situation.h"
+extern Situation situation;
+
+LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
 
 PollingTask::PollingTask(int trigPin, int echoPin, int lbPin, int lcPin, int potPin)
 {
@@ -7,7 +9,6 @@ PollingTask::PollingTask(int trigPin, int echoPin, int lbPin, int lcPin, int pot
     this->lb = Led(lbPin);
     this->lc = Led(lcPin);
     this->pot = Potentiometer(potPin);
-    lcd = LiquidCrystal_I2C(0x27, 20, 4);
 }
 
 void PollingTask::init(int period)

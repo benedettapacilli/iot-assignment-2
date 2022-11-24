@@ -3,6 +3,7 @@
 #include "../utils/Sonar.h"
 #include "../utils/Led.h"
 #include "../utils/Potentiometer.h"
+#include "../utils/Situation.h"
 #include "LiquidCrystal_I2C.h"
 
 #define PEnormal 2000
@@ -13,14 +14,12 @@
 #define WLMAX 150
 #define BLINKING_INTERVAL 2000
 
-LiquidCrystal_I2C lcd;
-
 class PollingTask : public Task
 {
 private:
     Sonar sonar;
-    int lastTimePolled;
-    int lastTimeBlinked;
+    unsigned long lastTimePolled;
+    unsigned long lastTimeBlinked;
     int currentPE;
     Led lb;
     Led lc;
