@@ -13,7 +13,7 @@ private:
     LightSensor ls;
     Led led;
     Pir pir;
-    int T1offset;
+    unsigned long T1offset;
 
 public:
     SmartLightingState state;
