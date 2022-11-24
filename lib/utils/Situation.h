@@ -5,5 +5,3 @@ enum Situation {
     PREALARM,
     ALARM
 };
-
-Situation situation = NORMAL;
