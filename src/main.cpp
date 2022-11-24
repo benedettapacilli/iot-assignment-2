@@ -3,10 +3,12 @@
 #include "../lib/utils/Scheduler.cpp"
 #include "../lib/smart_lighting/SmartLightingTask.h"
 #include "../lib/polling/PollingTask.h"
+#include "../lib/valve_behavior/ValveBehaviorTask.h"
 #include "../lib/utils/utilities.h"
 
 #define SMART_LIGHTING_TASK_PERIOD 100
-#define POLLING_TASK_PERIOD gcd_ctz(500, gcd_ctz(PEnormal, gcd_ctz(PEprealarm, gcd_ctz(PEalarm, BLINKING_INTERVAL))))
+#define POLLING_TASK_PERIOD gcd_ctz(LCD_REFRESH_INTERVAL, gcd_ctz(PEnormal, gcd_ctz(PEprealarm, gcd_ctz(PEalarm, BLINKING_INTERVAL))))
+#define VALVE_BEHAVIOR_TASK_PERIOD POLLING_TASK_PERIOD
 
 #define LA_PIN 2
 #define PIR_PIN 3
@@ -16,6 +18,8 @@
 #define SONAR_ECHO_PIN 8
 #define LS_PIN A0
 #define POT_PIN A1
+#define SERVO_PIN 10
+#define BUTTON_PIN 6
 
 Scheduler scheduler;
 
@@ -26,12 +30,15 @@ void setup()
 
     Task *smartLightingTask = new SmartLightingTask(PIR_PIN, LS_PIN, LA_PIN);
     Task *pollingTask = new PollingTask(SONAR_TRIG_PIN, SONAR_ECHO_PIN, LB_PIN, LC_PIN);
+    Task *valveBehaviorTask = new ValveBehaviorTask(POT_PIN, SERVO_PIN, BUTTON_PIN);
 
     smartLightingTask->init(SMART_LIGHTING_TASK_PERIOD);
     pollingTask->init(POLLING_TASK_PERIOD);
+    valveBehaviorTask->init(VALVE_BEHAVIOR_TASK_PERIOD);
 
     scheduler.addTask(smartLightingTask);
     scheduler.addTask(pollingTask);
+    scheduler.addTask(valveBehaviorTask);
 }
 
 void loop()
