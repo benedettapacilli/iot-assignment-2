@@ -17,7 +17,6 @@ void PollingTask::init(int period)
     this->pollWaterLevel();
     this->lastTimeBlinked = millis();
     lcd.init();
-    lcd.backlight();
 }
 
 void PollingTask::tick()
@@ -41,6 +40,8 @@ void PollingTask::tick()
         this->currentPE = PEnormal;
         this->lb.on();
         this->lc.off();
+        lcd.clear();
+        lcd.noBacklight();
         break;
 
     case PREALARM:
@@ -67,7 +68,8 @@ void PollingTask::pollWaterLevel()
 {
     this->lastTimePolled = millis();
     int distance = this->sonar.getDistance();
-    this->waterLevel = (distance > WLMAX) ? WLMAX : distance;
+    this->waterLevel = WLMAX - ((distance == 0 || distance > WLMAX) ? WLMAX : distance);
+    Serial.println(distance);
 }
 
 void PollingTask::blinkLc()
@@ -87,6 +89,7 @@ void PollingTask::showPreAlarmInfo()
     lcd.setCursor(0, 1);
     lcd.print("Water level: ");
     lcd.print(this->waterLevel);
+    lcd.backlight();
 }
 
 void PollingTask::showAlarmInfo()
@@ -100,6 +103,7 @@ void PollingTask::showAlarmInfo()
     lcd.setCursor(0, 2);
     lcd.print("Valve opening: ");
     lcd.print(getValveOpeningDegree());
+    lcd.backlight();
 }
 
 int PollingTask::getValveOpeningDegree()
