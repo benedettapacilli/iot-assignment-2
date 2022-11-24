@@ -5,6 +5,9 @@
 #include "../utils/LightSensor.h"
 #include "../utils/Situation.h"
 #include "SmartLightingState.h"
+
+extern Situation situation;
+
 #define THl 500
 #define T1 5000
 

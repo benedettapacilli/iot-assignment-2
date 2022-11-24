@@ -1,5 +1,4 @@
 #include "PollingTask.h"
-extern Situation situation;
 
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
 
