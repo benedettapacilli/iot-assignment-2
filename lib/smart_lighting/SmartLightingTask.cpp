@@ -1,5 +1,5 @@
 #include "SmartLightingTask.h"
-#include "../utils/Situation.h"
+extern Situation situation;
 
 SmartLightingTask::SmartLightingTask(int pirPin, int lsPin, int laPin)
 {

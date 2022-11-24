@@ -3,6 +3,7 @@
 #include "../utils/Led.h"
 #include "../utils/Pir.h"
 #include "../utils/LightSensor.h"
+#include "../utils/Situation.h"
 #include "SmartLightingState.h"
 #define THl 500
 #define T1 5000
