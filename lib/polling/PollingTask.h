@@ -1,5 +1,4 @@
 #pragma once
-#include "Arduino.h"
 #include "../utils/Task.h"
 #include "../utils/Sonar.h"
 #include "../utils/Led.h"
