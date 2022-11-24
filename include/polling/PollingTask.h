@@ -4,7 +4,6 @@
 #include "../utils/Sonar.h"
 #include "../utils/Led.h"
 #include "../utils/Potentiometer.h"
-#include "TimerOne.h"
 #include "LiquidCrystal_I2C.h"
 
 #define PEnormal 2000

@@ -1,4 +1,4 @@
-#include "../include/utils/Potentiometer.h"
+#include "../../include/utils/Potentiometer.h"
 
 Potentiometer::Potentiometer() 
 {
