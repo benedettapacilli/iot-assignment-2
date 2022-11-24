@@ -12,6 +12,7 @@ void SmartLightingTask::init(int period)
 {
     Task::init(period);
     this->state = IDLE;
+    Serial.println("IDLE init");
 }
 
 void SmartLightingTask::tick()
@@ -19,32 +20,30 @@ void SmartLightingTask::tick()
     if (situation == ALARM)
     {
         this->state = OFF;
+        Serial.println("OFF");
     }
 
     switch (this->state)
     {
     case IDLE:
     {
-        Serial.println("IDLE");
-
         if (this->pir.detect())
         {
-            state = DETECTED;
             this->T1offset = millis();
+            state = DETECTED;
+            Serial.println("DETECTED");
         }
         break;
     }
 
     case DETECTED:
     {
-        Serial.println("DETECTED");
         if (this->ls.getLightLevel() < THl)
         {
             this->led.on();
         }
         else
         {
-            this->state = IDLE;
             this->led.off();
         }
 
@@ -52,22 +51,22 @@ void SmartLightingTask::tick()
         {
             this->T1offset = millis();
         }
-
-        if (millis() - this->T1offset > T1)
+        else if (millis() - this->T1offset > T1)
         {
             this->led.off();
             this->state = IDLE;
+            Serial.println("IDLE");
         }
         break;
     }
 
     case OFF:
-        Serial.println("OFF");
         this->led.off();
 
         if (situation == NORMAL || situation == PREALARM)
         {
             this->state = IDLE;
+            Serial.println("IDLE");
         }
         break;
     }
