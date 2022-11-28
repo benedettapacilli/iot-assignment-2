@@ -2,14 +2,19 @@ import serial
 
 arduino = serial.Serial(port='COM3', baudrate=9600)
 
-situation = NORMAL
+situation = 0
 waterLevel = 0
 bridgeLightStatus = False
 
 
 while True:
-    situation = arduino.readline().decode('ascii')
-    waterLevel = arduino.readline().decode('ascii')
-    bridgeLightStatus = True if arduino.readline().decode('ascii') == 'True' else False
+    line = arduino.readline().decode('ascii').strip()
+
+    if line.startswith('s'):
+        situation = line[2:]
+    elif line.startswith('w'):
+        waterLevel = int(line[2:])
+    elif line.startswith('b'):
+        bridgeLightStatus = bool(int(line[2:]))
 
     print(situation, waterLevel, bridgeLightStatus)
