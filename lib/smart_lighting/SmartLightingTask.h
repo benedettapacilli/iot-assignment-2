@@ -7,6 +7,7 @@
 #include "SmartLightingState.h"
 
 extern Situation situation;
+extern bool bridgeLightStatus;
 
 #define THl 500
 #define T1 5000

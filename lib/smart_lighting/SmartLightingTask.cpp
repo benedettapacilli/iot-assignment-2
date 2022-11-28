@@ -36,10 +36,12 @@ void SmartLightingTask::tick()
         if (this->ls.getLightLevel() < THl)
         {
             this->la.on();
+            bridgeLightStatus = true;
         }
         else
         {
             this->la.off();
+            bridgeLightStatus = false;
         }
 
         if (this->pir.detect())
@@ -49,6 +51,7 @@ void SmartLightingTask::tick()
         else if (millis() - this->T1offset > T1)
         {
             this->la.off();
+            bridgeLightStatus = false;
             this->state = IDLE;
         }
 
@@ -61,6 +64,7 @@ void SmartLightingTask::tick()
 
     case OFF:
         this->la.off();
+        bridgeLightStatus = false;
 
         if (situation == NORMAL || situation == PREALARM)
         {
