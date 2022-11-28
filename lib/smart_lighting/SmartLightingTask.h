@@ -15,7 +15,7 @@ class SmartLightingTask : public Task
 {
 private:
     LightSensor ls;
-    Led led;
+    Led la;
     Pir pir;
     unsigned long T1offset;
 

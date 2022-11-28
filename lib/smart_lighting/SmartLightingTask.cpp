@@ -3,7 +3,7 @@
 SmartLightingTask::SmartLightingTask(int pirPin, int lsPin, int laPin)
 {
     this->ls = LightSensor(lsPin);
-    this->led = Led(laPin);
+    this->la = Led(laPin);
     this->pir = Pir(pirPin);
 }
 
@@ -35,11 +35,11 @@ void SmartLightingTask::tick()
     {
         if (this->ls.getLightLevel() < THl)
         {
-            this->led.on();
+            this->la.on();
         }
         else
         {
-            this->led.off();
+            this->la.off();
         }
 
         if (this->pir.detect())
@@ -48,7 +48,7 @@ void SmartLightingTask::tick()
         }
         else if (millis() - this->T1offset > T1)
         {
-            this->led.off();
+            this->la.off();
             this->state = IDLE;
         }
 
@@ -60,7 +60,7 @@ void SmartLightingTask::tick()
     }
 
     case OFF:
-        this->led.off();
+        this->la.off();
 
         if (situation == NORMAL || situation == PREALARM)
         {
