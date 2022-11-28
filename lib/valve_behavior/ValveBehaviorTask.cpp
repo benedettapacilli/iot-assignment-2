@@ -12,52 +12,56 @@ void ValveBehaviorTask::init(int period)
 {
     Task::init(period);
     this->lastTimeMoved = millis();
+    Serial.println("VALVE CLOSED");
 }
 
 void ValveBehaviorTask::tick()
 {
-    if (situation == NORMAL || situation == PREALARM)
-    {
-        this->valveState = CLOSED;
-    }
-    else
-    {
-        this->valveState = AUTO;
-    }
-
     switch (this->valveState)
     {
     case CLOSED:
-        Serial.println("CLOSED");
         closeValve();
+        if (situation != NORMAL && situation != PREALARM)
+        {
+            this->valveState = AUTO;
+            Serial.println("VALVE AUTO");
+        }
         break;
     case AUTO:
-        Serial.println("AUTO");
         openValveAuto();
-        // if (this->button.isPressed() && !this->buttonBeingPressed)
-        // {
-        //     this->buttonBeingPressed = true;
-        //     this->valveState = MANUAL;
-        //     Serial.println("VALVE MANUAL");
-        // }
-        // else if (!this->button.isPressed())
-        // {
-        //     this->buttonBeingPressed = false;
-        // }
+        if (situation == NORMAL || situation == PREALARM)
+        {
+            this->valveState = CLOSED;
+            Serial.println("VALVE CLOSED");
+        }
+        else if (this->button.isPressed() && !this->buttonBeingPressed)
+        {
+            this->buttonBeingPressed = true;
+            this->valveState = MANUAL;
+            Serial.println("VALVE MANUAL");
+        }
+        else if (!this->button.isPressed())
+        {
+            this->buttonBeingPressed = false;
+        }
         break;
     case MANUAL:
-        Serial.println("MANUAL");
         openValveManual();
-        // if (this->button.isPressed() && !this->buttonBeingPressed)
-        // {
-        //     this->buttonBeingPressed = true;
-        //     this->valveState = AUTO;
-        //     Serial.println("VALVE AUTO");
-        // }
-        // else if (!this->button.isPressed())
-        // {
-        //     this->buttonBeingPressed = false;
-        // }
+        if (situation == NORMAL || situation == PREALARM)
+        {
+            this->valveState = CLOSED;
+            Serial.println("VALVE CLOSED");
+        }
+        else if (this->button.isPressed() && !this->buttonBeingPressed)
+        {
+            this->buttonBeingPressed = true;
+            this->valveState = AUTO;
+            Serial.println("VALVE AUTO");
+        }
+        else if (!this->button.isPressed())
+        {
+            this->buttonBeingPressed = false;
+        }
         break;
     }
 }
