@@ -1,9 +1,9 @@
 # <div align=center> IOT Assignment #2 report</div>
 ## <div align = center> Smart Bridge</div>
 ## Collaborators:
-- Salvatore Antonio Addimando, 0000970539
-- Benedetta Pacilli, 0000975296
-- Valentina Pieri, 0000974789
+- Salvatore Antonio Addimando - 0000970539 - salvatore.addimando@studio.unibo.it
+- Benedetta Pacilli - 0000975296 - benedetta.pacilli@studio.unibo.it
+- Valentina Pieri, 0000974789 - valentina.pieri5@studio.unibo.it
 
 <div style="page-break-after: always;"></div>
 
