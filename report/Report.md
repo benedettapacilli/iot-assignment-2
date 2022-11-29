@@ -1,9 +1,9 @@
 # <div align=center> IOT Assignment #2 report</div>
 ## <div align = center> Smart Bridge</div>
 ## Collaborators:
-- Salvatore Antonio Addimando
-- Benedetta Pacilli
-- Valentina Pieri
+- Salvatore Antonio Addimando, 0000970539
+- Benedetta Pacilli, 0000975296
+- Valentina Pieri, 0000974789
 
 <div style="page-break-after: always;"></div>
 
@@ -57,4 +57,3 @@ This task is depicted by the PollingTask.h and PollingTask.cpp files. It represe
 - ## Valve Behavior task:
 The files representing this task are the ValveBehaviorTask.h and the ValveBehaviorTask.cpp and together they simulate the valve functioning; in particular, how the valve automatically opens if the water situation is labeled as "ALARM" and the switch between automatic and manual mode.
 
-#
