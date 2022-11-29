@@ -7,15 +7,9 @@
 #include "ServoTimer2.h"
 
 extern Situation situation;
+extern ValveState valveState;
 extern int waterLevel;
 extern unsigned int valveOpening;
-
-enum ValveState
-{
-    CLOSED,
-    AUTO,
-    MANUAL
-};
 
 class ValveBehaviorTask : public Task
 {
@@ -23,7 +17,6 @@ private:
     Potentiometer pot;
     ServoTimer2 servo;
     Button button;
-    ValveState valveState;
     bool buttonBeingPressed = false;
     unsigned long lastTimeMoved;
 

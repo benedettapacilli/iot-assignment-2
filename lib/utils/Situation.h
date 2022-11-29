@@ -5,3 +5,10 @@ enum Situation {
     PREALARM,
     ALARM
 };
+
+enum ValveState
+{
+    CLOSED,
+    AUTO,
+    MANUAL
+};

@@ -5,7 +5,7 @@ ValveBehaviorTask::ValveBehaviorTask(int potPin, int servoPin, int buttonPin)
     this->pot = Potentiometer(potPin);
     this->button = Button(buttonPin);
     this->servo.attach(servoPin);
-    this->valveState = CLOSED;
+    valveState = CLOSED;
 }
 
 void ValveBehaviorTask::init(int period)
@@ -16,25 +16,25 @@ void ValveBehaviorTask::init(int period)
 
 void ValveBehaviorTask::tick()
 {
-    switch (this->valveState)
+    switch (valveState)
     {
     case CLOSED:
         closeValve();
         if (situation != NORMAL && situation != PREALARM)
         {
-            this->valveState = AUTO;
+            valveState = AUTO;
         }
         break;
     case AUTO:
         openValveAuto();
         if (situation == NORMAL || situation == PREALARM)
         {
-            this->valveState = CLOSED;
+            valveState = CLOSED;
         }
         else if (this->button.isPressed() && !this->buttonBeingPressed)
         {
             this->buttonBeingPressed = true;
-            this->valveState = MANUAL;
+            valveState = MANUAL;
         }
         else if (!this->button.isPressed())
         {
@@ -45,12 +45,12 @@ void ValveBehaviorTask::tick()
         openValveManual();
         if (situation == NORMAL || situation == PREALARM)
         {
-            this->valveState = CLOSED;
+            valveState = CLOSED;
         }
         else if (this->button.isPressed() && !this->buttonBeingPressed)
         {
             this->buttonBeingPressed = true;
-            this->valveState = AUTO;
+            valveState = AUTO;
         }
         else if (!this->button.isPressed())
         {
