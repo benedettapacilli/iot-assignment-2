@@ -11,7 +11,7 @@
 
 <div style="page-break-after: always;"></div>
 
-# FSM schema
+# 1. FSM schema
 ![FSMSchema](resources/FSMschema.jpg)
 <figcaption align = "center">Figure 1 - FSM schema</figcaption>
 
@@ -19,7 +19,7 @@ In Figure 1 it is shown the schema representation of the Finite State Machine of
 
 <div style="page-break-after: always;"></div>
 
-## Smart Lighting
+## 1.1 Smart Lighting
 ![SmartLightningSchema](resources/SmartLightningSchema.jpg)
 <figcaption align = "center">Figure 2 - Smart Lightning state diagram</figcaption>
 
@@ -28,7 +28,7 @@ This parting can be observed in the code as well, inside the SmartLightningState
 
 <div style="page-break-after: always;"></div>
 
-## Water Level Monitoring
+## 1.2 Water Level Monitoring
 ![WaterLevelMonitoringSchema](WaterLevelMonitoringSchema.jpg)
 <figcaption align = "center">Figure 3 - Water Level Monitoring state diagram</figcaption>
 
@@ -36,7 +36,7 @@ Figure 3 shows how the monitoring behavior was modelled. The water level monitor
 
 <div style="page-break-after: always;"></div>
 
-# Circuit schema
+# 2. Circuit schema
 ![CircuitSchema](CircuitSchema.png)
 <figcaption align = "center">Figure 4 - Circuit graphic schema</figcaption>
 
@@ -47,13 +47,43 @@ Figures 4 and 5 showcase the circuit designed used in the project.
 
 <div style="page-break-after: always;"></div>
 
-# Task Architecture
+# 3. Task Architecture
 
 The tasks identified are the following:
-- ## Smart Lightning task:
+- ## 3.1 Smart Lightning task:
 This task is represented by the SmartLightningTask.h and SmartLightningTask.cpp files, and it consists of the La led, the Light Sensor and the PIR. It simulates a bridge in which, in case someone pass (is detected by the PIR), a green light turns on, depending on the intensity of the light level measured. The task is deactivated when the water level situation is labeled as "ALARM", this is possible thanks to the Situation.h and Situation.cpp files.
-- ## Polling task: 
+- ## 3.2 Polling task: 
 This task is depicted by the PollingTask.h and PollingTask.cpp files. It represents the action of continuous water level monitoring and measuring. According to the water level, the situation is labeled as "NORMAL"/"PREALARM"/"ALARM" which allows an exchange of information, between the tasks. In fact, the whole program functioning is based on how high/low the current water level is.
-- ## Valve Behavior task:
+- ## 3.3 Valve Behavior task:
 The files representing this task are the ValveBehaviorTask.h and the ValveBehaviorTask.cpp and together they simulate the valve functioning; in particular, how the valve automatically opens if the water situation is labeled as "ALARM" and the switch between automatic and manual mode.
 
+<div style="page-break-after: always;"></div>
+
+# 4. Instructions
+This last chapter aims to provide guidance on how to properly run the program by providing instructions on the libraries to installed and the steps to be taken to be able to correctly and concurrently run both the python and Arduino part of the program.
+
+## 4.1 Dipendencies
+In order to run the program, there are some libraries that have to be installed.
+
+### Arduino libraries
+- [LiquidCrystal_I2C](https://github.com/johnrickman/LiquidCrystal_I2C)
+- [TimerOne](https://github.com/PaulStoffregen/TimerOne)
+### Python libraries
+Run the specified commands according to the O.S. you are using:
+- On Ubuntu:
+```
+sudo apt install python3 && sudo apt install python3-pip && pip3 install pysimplegui && pip3 install matplotlib && pip3 install pyserial
+```
+- On Windows: 
+```
+pip3 install pysimplegui ; pip3 install matplotlib ; pip3 install pyserial
+```
+
+## 4.2 Execution instructions
+
+1. Attach the Arduino to the computer
+2. Build and upload the Arduino part
+3. Detach the Arduino from the computer
+4. Run the Python script:
+	1. Go inside "Python" folder 
+	2. Run ```python .\main.py ```
