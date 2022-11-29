@@ -12,7 +12,7 @@ sudo apt install python3 && sudo apt install python3-pip && pip3 install pysimpl
 pip3 install pysimplegui ; pip3 install matplotlib ; pip3 install pyserial
 ```
 
-For the Arduino part:
-Install the following library:
+For the Arduino part: </br> Install the following libraries:
 - [LiquidCrystal_I2C](https://github.com/johnrickman/LiquidCrystal_I2C)
+- [TimerOne](https://github.com/PaulStoffregen/TimerOne)
 
