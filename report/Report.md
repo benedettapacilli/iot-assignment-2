@@ -44,3 +44,17 @@ Figure 3 shows how the monitoring behavior was modelled. The water level monitor
 <figcaption align = "center">Figure 5 - Circuit minimal schema</figcaption>
 
 Figures 4 and 5 showcase the circuit designed used in the project.
+
+<div style="page-break-after: always;"></div>
+
+# Task Architecture
+
+The tasks identified are the following:
+- ## Smart Lightning task:
+This task is represented by the SmartLightningTask.h and SmartLightningTask.cpp files, and it consists of the La led, the Light Sensor and the PIR. It simulates a bridge in which, in case someone pass (is detected by the PIR), a green light turns on, depending on the intensity of the light level measured. The task is deactivated when the water level situation is labeled as "ALARM", this is possible thanks to the Situation.h and Situation.cpp files.
+- ## Polling task: 
+This task is depicted by the PollingTask.h and PollingTask.cpp files. It represents the action of continuous water level monitoring and measuring. According to the water level, the situation is labeled as "NORMAL"/"PREALARM"/"ALARM" which allows an exchange of information, between the tasks. In fact, the whole program functioning is based on how high/low the current water level is.
+- ## Valve Behavior task:
+The files representing this task are the ValveBehaviorTask.h and the ValveBehaviorTask.cpp and together they simulate the valve functioning; in particular, how the valve automatically opens if the water situation is labeled as "ALARM" and the switch between automatic and manual mode.
+
+#
