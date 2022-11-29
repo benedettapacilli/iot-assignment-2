@@ -4,6 +4,7 @@
 #include <Arduino.h>
 
 extern Situation situation;
+extern ValveState valveState;
 extern bool bridgeLightStatus;
 extern int waterLevel;
 

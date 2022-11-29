@@ -17,4 +17,6 @@ void ConnectorTask::tick()
     Serial.println(bridgeLightStatus);
     Serial.print("w ");
     Serial.println(waterLevel);
+    Serial.print("v ");
+    Serial.println(valveState);
 }
