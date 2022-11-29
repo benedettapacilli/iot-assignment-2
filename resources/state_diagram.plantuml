@@ -1,0 +1,70 @@
+@startuml State Diagram
+!theme plain
+hide empty description
+
+note "situation::{NORMAL, PREALARM, ALARM}" as initSituation
+
+initSituation -[hidden]d-> SmartLighting
+initSituation -[hidden]d-> WaterLevelMonitoring
+
+state SmartLighting {
+    state start1 <<start>>
+    state Idle
+    state Detected : if Ls < THl / turn on La
+    state Off : do / turn off La
+
+    start1 --> Idle
+    Idle --> Off : [situation = ALARM]
+    Off --> Idle : [situation = NORMAL or situation = PREALARM]
+    Idle --> Detected : presence detected
+    Detected --> Idle : [Ls > THl] or after T1 / turn off La
+}
+
+SmartLighting -[hidden]d-> WaterLevelMonitoring
+
+state WaterLevelMonitoring {
+    state wlPolling <<start>>
+    state Polling
+
+    wlPolling --> Polling : wl := 0
+    Polling --> Polling : [situation = NORMAL] after PEnormal else [situation = PREALARM] after PEprealarm else [situation = ALARM] after PEalarm / wl := polled wl
+
+    --
+
+    state start2 <<start>>
+    state Normal : do / turn on Lb, turn off Lc and situation := NORMAL
+    state PreAlarm : do / blink Lc every 2s, turn on LCD, show PREALARM, show wl and situation := PREALARM
+    state Alarm : do / turn off Lb, turn on Lc, turn on LCD, show ALARM, show wl, show ALPHA
+    
+    
+    start2 --> Normal
+    Normal --> PreAlarm : [wl > WL1] and [wl < WL2]
+    PreAlarm --> Normal : [wl < WL1]
+    PreAlarm --> Alarm : [wl > WL2]
+    Alarm --> PreAlarm : [wl > WL1] and [wl < WL2]
+    
+    --
+
+    state start3 <<start>>
+    state ValveClosed
+    state AutoValve : do / openValve(ALPHA)
+    state ManualValve : do / openValve(potValue)
+
+    start3 --> ValveClosed
+    ValveClosed --> AutoValve : [situation = ALARM]
+    AutoValve --> ManualValve : [situation = ALARM] and B pressed
+    ManualValve --> AutoValve : [situation = ALARM] and B pressed
+    AutoValve --> ValveClosed : [situation = NORMAL or situation = PREALARM]
+    ManualValve --> ValveClosed : [situation = NORMAL or situation = PREALARM]
+    
+
+}
+
+
+
+
+
+
+
+
+@enduml
