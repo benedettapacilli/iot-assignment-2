@@ -28,6 +28,7 @@ Scheduler scheduler;
 void setup()
 {
     Serial.begin(9600);
+    Serial.setTimeout(0);
     scheduler.init(gcd_ctz(SMART_LIGHTING_TASK_PERIOD, POLLING_TASK_PERIOD));
 
     Task *smartLightingTask = new SmartLightingTask(PIR_PIN, LS_PIN, LA_PIN);

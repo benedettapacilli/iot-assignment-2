@@ -23,6 +23,7 @@ void ValveBehaviorTask::tick()
         if (situation != NORMAL && situation != PREALARM)
         {
             valveState = AUTO;
+            guiManualEngaged = false;
         }
         break;
     case AUTO:
@@ -30,11 +31,13 @@ void ValveBehaviorTask::tick()
         if (situation == NORMAL || situation == PREALARM)
         {
             valveState = CLOSED;
+            guiManualEngaged = false;
         }
         else if (this->button.isPressed() && !this->buttonBeingPressed)
         {
             this->buttonBeingPressed = true;
             valveState = MANUAL;
+            guiManualEngaged = false;
         }
         else if (!this->button.isPressed())
         {
@@ -46,11 +49,13 @@ void ValveBehaviorTask::tick()
         if (situation == NORMAL || situation == PREALARM)
         {
             valveState = CLOSED;
+            guiManualEngaged = false;
         }
         else if (this->button.isPressed() && !this->buttonBeingPressed)
         {
             this->buttonBeingPressed = true;
             valveState = AUTO;
+            guiManualEngaged = false;
         }
         else if (!this->button.isPressed())
         {
@@ -72,7 +77,14 @@ void ValveBehaviorTask::openValveAuto()
 
 void ValveBehaviorTask::openValveManual()
 {
-    this->openValveToAngle(map(this->pot.read(), 0, 1023, 0, 180));
+    if (!guiManualEngaged)
+    {
+        this->openValveToAngle(map(this->pot.read(), 0, 1023, 0, 180));
+    }
+    else
+    {
+        this->openValveToAngle(guiManualValveOpeningDegrees);
+    }
 }
 
 void ValveBehaviorTask::openValveToAngle(int newAngle)

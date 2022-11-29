@@ -5,3 +5,5 @@ ValveState valveState = CLOSED;
 int waterLevel = 0;
 unsigned int valveOpening = 0;
 bool bridgeLightStatus = false;
+bool guiManualEngaged = false;
+int guiManualValveOpeningDegrees = 0;

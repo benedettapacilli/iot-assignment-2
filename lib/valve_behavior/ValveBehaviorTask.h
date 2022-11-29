@@ -10,6 +10,8 @@ extern Situation situation;
 extern ValveState valveState;
 extern int waterLevel;
 extern unsigned int valveOpening;
+extern bool guiManualEngaged;
+extern int guiManualValveOpeningDegrees;
 
 class ValveBehaviorTask : public Task
 {

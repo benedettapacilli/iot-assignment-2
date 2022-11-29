@@ -32,6 +32,7 @@ def plot_figure(index, theta):
 arduino = serial.Serial(port='COM3', baudrate=9600)
 
 situation = 'NORMAL'
+valve_state = 'CLOSED'
 water_level_data = [0] * 30
 bridge_light_status = False
 
@@ -42,9 +43,10 @@ use_agg('TkAgg')
 layout = [
     [sg.Text("Water level graph")],
     [sg.Graph((740, 480), (0, 0), (30, 30), key='-GRAPH-')],
-    [sg.Text("Situation: "), sg.Text(situation, key='-SITUATION-')],
-     [sg.Text("Bridge light status: "), sg.Text(
-         'on' if bridge_light_status else 'off', key='-BRIDGE_LIGHT_STATUS-')]
+    [sg.Text("Situation: "), sg.Text(situation, key='-SITUATION-'), sg.Text("Bridge light status: "), sg.Text(
+        'on' if bridge_light_status else 'off', key='-BRIDGE_LIGHT_STATUS-')],
+    [sg.Text("Valve state: "), sg.Text(valve_state, key='-VALVE_STATE-'),
+     sg.Button("SWITCH", key='-SWITCH-BUTTON-'), sg.Slider(range=(0, 180), orientation='h', size=(20, 15), key='-SLIDER-')]
 ]
 
 window = sg.Window('Smart Bridge Data', layout,
@@ -59,12 +61,32 @@ pack_figure(graph, fig)
 last_time_plotted = datetime.datetime.now().timestamp()
 
 while True:
+    event, values = window.read(timeout=0)
+
     line = arduino.readline().decode('ascii').strip()
 
     if line.startswith('s'):
         situation = "NORMAL" if line[2:] == '0' else "PRE-ALARM" if line[2:
                                                                          ] == '1' else "ALARM" if line[2:] == '2' else "UNKNOWN"
         window['-SITUATION-'].update(situation)
+    elif line.startswith('v'):
+        if(line[2:] == '0'):
+            valve_state = 'CLOSED'
+            window['-SWITCH-BUTTON-'].update(disabled=True)
+            window['-SLIDER-'].update(disabled=True)
+        elif(line[2:] == '1'):
+            valve_state = 'AUTO'
+            window['-SWITCH-BUTTON-'].update(disabled=False)
+            window['-SLIDER-'].update(disabled=True)
+        elif(line[2:] == '2'):
+            valve_state = 'MANUAL'
+            window['-SWITCH-BUTTON-'].update(disabled=False)
+            window['-SLIDER-'].update(disabled=False)
+            arduino.write(bytes(f"v {values['-SLIDER-']}", 'ascii'))
+        else:
+            valve_state = 'UNKNOWN'
+
+        window['-VALVE_STATE-'].update(valve_state)
     elif line.startswith('w'):
         if(datetime.datetime.now().timestamp() - last_time_plotted > 1):
             water_level_data.append(int(line[2:]))
@@ -75,9 +97,10 @@ while True:
         bridge_light_status = True if line[2:] == '1' else False
         window['-BRIDGE_LIGHT_STATUS-'].update(bridge_light_status)
 
-    event, values = window.read(timeout=0)
-
     if event == sg.WIN_CLOSED or event == 'Exit':
         break
+    elif event == '-SWITCH-BUTTON-':
+        if valve_state != 'CLOSED' and valve_state != 'UNKNOWN':
+            arduino.write(bytes("s", 'ascii'))
 
 window.close()
