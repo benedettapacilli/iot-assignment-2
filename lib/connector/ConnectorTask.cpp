@@ -19,4 +19,27 @@ void ConnectorTask::tick()
     Serial.println(waterLevel);
     Serial.print("v ");
     Serial.println(valveState);
+
+    String line = Serial.readString();
+    if (line.length() > 0 && line[0] == 's')
+    {
+        if (valveState == AUTO)
+        {
+            valveState = MANUAL;
+            guiManualEngaged = true;
+        }
+        else if (valveState == MANUAL)
+        {
+            valveState = AUTO;
+            guiManualEngaged = false;
+        }
+    }
+
+    if (guiManualEngaged)
+    {
+        if (line.length() > 0 && line[0] == 'v')
+        {
+            guiManualValveOpeningDegrees = line.substring(2).toInt();
+        }
+    }
 }

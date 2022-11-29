@@ -7,6 +7,8 @@ extern Situation situation;
 extern ValveState valveState;
 extern bool bridgeLightStatus;
 extern int waterLevel;
+extern bool guiManualEngaged;
+extern int guiManualValveOpeningDegrees;
 
 class ConnectorTask : public Task
 {
