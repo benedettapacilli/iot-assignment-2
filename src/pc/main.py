@@ -29,7 +29,7 @@ def plot_figure(index, theta):
     ax.set_xscale('linear')
     ax.grid()
     ax.set_ylim(0, 100)
-    ax.invert_xaxis()
+    ax.set_xlim(29, 0)
     plt.plot(seconds_ago, water_level_data)
     fig.canvas.draw()
 
@@ -41,13 +41,13 @@ valve_state = 'CLOSED'
 water_level_data = [0] * 30
 bridge_light_status = False
 
-seconds_ago = [i for i in range(30, 0, -1)]
+seconds_ago = [i for i in range(29, -1, -1)]
 
 use_agg('TkAgg')
 
 layout = [
     [sg.Text("Water level graph")],
-    [sg.Graph((740, 480), (0, 0), (30, 30), key='-GRAPH-')],
+    [sg.Graph((800, 480), (29, 0), (0, 100), key='-GRAPH-')],
     [sg.Text("Situation: "), sg.Text(situation, key='-SITUATION-'), sg.Text("Bridge light status: "), sg.Text(
         'on' if bridge_light_status else 'off', key='-BRIDGE_LIGHT_STATUS-')],
     [sg.Text("Valve state: "), sg.Text(valve_state, key='-VALVE_STATE-'),
@@ -60,7 +60,6 @@ window = sg.Window('Smart Bridge Data', layout,
 graph = window['-GRAPH-']
 plt.ioff()
 fig = plt.figure(1)
-ax1 = plt.subplot(111)
 pack_figure(graph, fig)
 
 last_time_plotted = datetime.datetime.now().timestamp()
