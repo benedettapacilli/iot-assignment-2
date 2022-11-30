@@ -1,2 +1,18 @@
 # iot-assignment-2
-"Smart Bridge" project
+"Smart Bridge" project for the Embedded Systems and Internet of Things course at the University of Bologna
+
+## Installation
+For the Python part:
+- On Ubuntu, run:
+```
+sudo apt install python3 && sudo apt install python3-pip && pip3 install pysimplegui && pip3 install matplotlib && pip3 install pyserial
+```
+- On Windows, first install python3, then run:
+```
+pip3 install pysimplegui ; pip3 install matplotlib ; pip3 install pyserial
+```
+
+For the Arduino part: </br> Install the following libraries:
+- [LiquidCrystal_I2C](https://github.com/johnrickman/LiquidCrystal_I2C)
+- [TimerOne](https://github.com/PaulStoffregen/TimerOne)
+
