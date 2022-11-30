@@ -95,9 +95,11 @@ pip3 install pysimplegui ; pip3 install matplotlib ; pip3 install pyserial
 
 ## Execution instructions
 
-1. Attach the Arduino to the computer
-2. Build and upload the Arduino part
-3. Detach the Arduino from the computer
-4. Run the Python script:
-	1. Go inside "python" folder 
-	2. Run ```python .\main.py ```
+1. Open project folder (the one containing src and pc directories) in vscode using PlatformIO extension
+2. Edit the config file platformio.ini according to the location of the Arduino libraries on your machine
+3. Plug the Arduino board via USB
+4. Build and Upload the code through the PlatformIO extension
+5. Unplug the Arduino board
+6. Start the python script by running the following command:
+```python3 src/pc/main.py```
+7. Plug the Arduino board via USB once again
