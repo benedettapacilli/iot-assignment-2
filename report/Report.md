@@ -5,6 +5,8 @@
 - Benedetta Pacilli - 0000975296 - benedetta.pacilli@studio.unibo.it
 - Valentina Pieri, 0000974789 - valentina.pieri5@studio.unibo.it
 
+P.S. The assignment was developed up to the third level of difficulty.
+
 <div style="page-break-after: always;"></div>
 
 # Index
