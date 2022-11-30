@@ -1,7 +1,7 @@
 #pragma once
-#include "../utils/Task.h"
-#include "../utils/Sonar.h"
-#include "../utils/Led.h"
+#include "../task_architecture/Task.h"
+#include "../peripherals/Sonar.h"
+#include "../peripherals/Led.h"
 #include "../utils/Situation.h"
 #include "LiquidCrystal_I2C.h"
 

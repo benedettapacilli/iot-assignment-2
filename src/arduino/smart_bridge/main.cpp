@@ -6,13 +6,12 @@ Valentina Pieri 0000974789 - valentina.pieri5@studio.unibo.it
 */
 
 #include <Arduino.h>
-#include "../lib/utils/Scheduler.h"
-#include "../lib/utils/Scheduler.cpp"
-#include "../lib/smart_lighting/SmartLightingTask.h"
-#include "../lib/polling/PollingTask.h"
-#include "../lib/valve_behavior/ValveBehaviorTask.h"
-#include "../lib/connector/ConnectorTask.h"
-#include "../lib/utils/utilities.h"
+#include "task_architecture/Scheduler.h"
+#include "smart_lighting/SmartLightingTask.h"
+#include "polling/PollingTask.h"
+#include "valve_behavior/ValveBehaviorTask.h"
+#include "connector/ConnectorTask.h"
+#include "utils/utilities.h"
 
 #define SMART_LIGHTING_TASK_PERIOD 100
 #define POLLING_TASK_PERIOD gcd_ctz(LCD_REFRESH_INTERVAL, gcd_ctz(PEnormal, gcd_ctz(PEprealarm, gcd_ctz(PEalarm, BLINKING_INTERVAL))))

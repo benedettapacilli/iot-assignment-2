@@ -1,8 +1,8 @@
 #pragma once
-#include "../utils/Task.h"
-#include "../utils/Led.h"
-#include "../utils/Pir.h"
-#include "../utils/LightSensor.h"
+#include "../task_architecture/Task.h"
+#include "../peripherals/Led.h"
+#include "../peripherals/Pir.h"
+#include "../peripherals/LightSensor.h"
 #include "../utils/Situation.h"
 #include "SmartLightingState.h"
 
